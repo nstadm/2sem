@@ -1,0 +1,90 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class ShopItemOrder
+{
+public:
+    ShopItemOrder(string name, double price, int quantity);
+
+    string getName() const;
+    void setName(string name);
+
+    double getPrice() const;
+    void setPrice(double price);
+
+    int getQuantity() const;
+    void setQuantity(int quantity);
+
+    double getTotalPrice() const;
+
+    void printOrder() const;
+
+private:
+    string name;
+    double price;
+    int quantity;
+};
+
+ShopItemOrder::ShopItemOrder(string name, double price, int quantity)
+{
+    this->name = name;
+    this->price = price;
+    this->quantity = quantity;
+}
+
+string ShopItemOrder::getName() const
+{
+    return name;
+}
+
+void ShopItemOrder::setName(string name)
+{
+    this->name = name;
+}
+
+double ShopItemOrder::getPrice() const
+{
+    return price;
+}
+
+void ShopItemOrder::setPrice(double price)
+{
+    this->price = price;
+}
+
+int ShopItemOrder::getQuantity() const
+{
+    return quantity;
+}
+
+void ShopItemOrder::setQuantity(int quantity)
+{
+    this->quantity = quantity;
+}
+
+double ShopItemOrder::getTotalPrice() const
+{
+    return price * quantity;
+}
+
+void ShopItemOrder::printOrder() const
+{
+    cout << "Item: " << name << endl;
+    cout << "Price per unit: $" << price << endl;
+    cout << "Quantity: " << quantity << endl;
+    cout << "Total price: $" << getTotalPrice() << endl;
+}
+
+int main()
+{
+    ShopItemOrder order("Laptop", 999.99, 2);
+    order.printOrder();
+
+    order.setPrice(1099.99);
+    order.setQuantity(3);
+    order.printOrder();
+
+    return 0;
+}

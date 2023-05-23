@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class AdHocSquare
+{
+public:
+	AdHocSquare(double side) {
+		this->side = side;
+	};
+	void set_side(double side);
+	double get_area();
+private:
+	double side;
+};
+void AdHocSquare::set_side (double side) {
+	this->side =side ;
+}
+double AdHocSquare::get_area() {
+	return side * side; 
+}
+class LazySquare
+{
+public:
+	LazySquare(double side) {
+		this->side = side;
+		side_changed = 1;
+	};
+	void set_side(double side);
+	double get_area();
+private:
+	double side;
+	double area;
+	bool side_changed;
+};
+void LazySquare::set_side(double side) {	
+		this->side = side;
+		side_changed = 1; 
+}
+double  LazySquare::get_area() {
+	if (side_changed ==1) { 
+		area = 0; 
+		area = side * side;		
+	}
+	return area; 
+};
+int main()
+{
+	cout << "AdHocSquare\n";
+	AdHocSquare s(3.0);
+	cout << s.get_area() << "\n";
+	s.set_side(4.0);
+	cout << s.get_area() << "\n";
+	cout << "LazySquare\n";
+	LazySquare s2(3.0);
+	cout << s2.get_area() << "\n";
+	s2.set_side(4.0);
+	cout << s2.get_area() << "\n";
+		return 0;
+}

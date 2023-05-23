@@ -1,0 +1,133 @@
+#include <iostream>
+
+using namespace std;
+class FlightBooking {
+public:
+void add(int n);
+void cancel(int n);
+FlightBooking(int id, int capacity, int reserved);
+FlightBooking();
+void printStatus();
+bool reserveSeats(int number_ob_seats);
+bool canceReservations(int number_ob_seats);
+int getId() { return id ;}
+void setId(int id){this->id=id;}
+void setCapasity(int capacity){this->capacity=capacity;}
+private:
+int id;
+int capacity;
+int reserved;
+};
+void FlightBooking::add(int n){
+    this->reserved+=n;
+}
+void FlightBooking::cancel(int n){
+    this->reserved-=n;
+}
+void FlightBooking::printStatus()
+{
+double percent = 0;
+
+
+		percent = 100.0 * ((double)this->reserved / this->capacity);
+		printf("Flight %d: %d/%d (%lf) seats taken\n", this->id, this->reserved, this->capacity, percent);
+
+
+}
+bool FlightBooking::reserveSeats(int number_ob_seats)
+{
+if(105.0>=(100.0 * ((double)(this->reserved+number_ob_seats) / this->capacity))){
+    return true;
+}
+return false;
+}
+bool FlightBooking::canceReservations(int number_ob_seats)
+{
+if(reserved-number_ob_seats>=0){
+    return true;
+}
+return false;
+}
+FlightBooking::FlightBooking()
+{
+id = 0; capacity = 0; reserved = 0;
+}
+FlightBooking::FlightBooking(int id, int capacity, int reserved)
+{
+this->id = id;
+	this->capacity=capacity;
+	this->reserved=reserved;
+	if (this->reserved > this->capacity)
+	{
+		reserved = 0;
+		cout << "Cannot perform this operation \n";
+	}
+}
+int main() {
+FlightBooking booking[10];
+int reserved = 0,
+capacity = 0;
+int id;
+bool break1=false;
+int maxID=0;
+
+string command = "";
+while (command != "quit"){
+    if(maxID!=0)
+for (int i = 1; i <= maxID; i++) {
+    booking[i].printStatus();
+}
+
+cout << "What would you like to do?: ";
+		cin >> command;
+		if (command == "quit")
+			break;
+			
+		if(command!="create")cout << "Enter the number: ";
+		int numb;
+		if (command == "add")
+		{
+			cin >> numb;
+			cout << "Enter the Id: ";
+			cin >> id;
+			if(booking[id].reserveSeats(numb))
+			   booking[id].add(numb);
+			
+		}
+		else if (command == "cancel")
+		{
+			cin >> numb;
+			cout << "Enter the Id: ";
+			cin >> id;
+			if(booking[id].canceReservations(numb))
+			    booking[id].cancel(numb);
+			
+		}
+		else if (command == "create"){
+		    if(maxID<=10){
+		    
+		    cout << "Enter the Id: ";
+		    cin >> id;
+		    for (int i = 1; i < 10; i++) {
+		        if(booking[i].getId()==id){
+		        cout<<"Cannot perform this operation, this id is already in use\n";
+		            break1=true;
+		        }
+		    }
+			if(break1==false){
+			    maxID++;
+			booking[maxID].setId(id);
+		    cout << "Provide flight capacity: ";
+            cin >> capacity;
+            booking[maxID].setCapasity(capacity);
+			}else break1= false;
+		    }
+		}
+		else
+		{
+			printf("Cannot perform this operation, invalid command\n");
+		}
+}
+return 0;
+}
+
